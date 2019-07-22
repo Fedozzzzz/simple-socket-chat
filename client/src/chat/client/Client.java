@@ -13,7 +13,7 @@ import java.text.SimpleDateFormat;
 import java.util.Date;
 
 
-public class Client extends JFrame implements  TCPConnectionListener {
+public class Client extends JFrame implements  TCPConnectionListener{
 
     public static void main(String[] args) {
         SwingUtilities.invokeLater(new Runnable() {

@@ -8,7 +8,7 @@ public class TCPConnection {
 
     private final Socket socket;
     private final Thread rxThread;
-    private final BufferedWriter out;
+    public final BufferedWriter out;
     private final BufferedReader in;
 
     public TCPConnection(TCPConnectionListener eventListener, Socket socket) throws IOException {
