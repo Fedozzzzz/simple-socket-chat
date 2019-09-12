@@ -11,9 +11,13 @@ import java.awt.event.ActionListener;
 import java.io.*;
 import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 
-public class Client extends JFrame implements  TCPConnectionListener{
+public class Client extends JFrame implements TCPConnectionListener {
+
+    private static Logger logger = Logger.getLogger(Client.class.getName());
 
     public static void main(String[] args) {
         SwingUtilities.invokeLater(new Runnable() {
@@ -57,6 +61,7 @@ public class Client extends JFrame implements  TCPConnectionListener{
 
         JButton sendBtn = new JButton("Send");
         sendBtn.addActionListener(new Send());
+
         add(nickname, BorderLayout.NORTH);
         add(text, BorderLayout.CENTER);
         JPanel panel = new JPanel();
@@ -70,7 +75,7 @@ public class Client extends JFrame implements  TCPConnectionListener{
         try {
             connection = new TCPConnection(this, "localhost", 3000);
         } catch (IOException e) {
-            printMessage("Connection exception: " + e);
+            logger.log(Level.WARNING, "Connection exception: ", e);
         }
     }
 
@@ -97,9 +102,9 @@ public class Client extends JFrame implements  TCPConnectionListener{
         try {
             ais = AudioSystem.getAudioInputStream(file);
         } catch (UnsupportedAudioFileException e) {
-            e.printStackTrace();
+            logger.log(Level.WARNING, "Unsupported audio file: ", e);
         } catch (IOException e) {
-            e.printStackTrace();
+            logger.log(Level.WARNING, "error: ", e);
         }
 
         try {
@@ -114,7 +119,7 @@ public class Client extends JFrame implements  TCPConnectionListener{
             clip.start();
 
         } catch (IOException | LineUnavailableException exc) {
-            exc.printStackTrace();
+            logger.log(Level.WARNING, "error: ", exc);
         }
     }
 
